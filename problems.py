@@ -15,24 +15,6 @@ def parseDataString(string):
   data = string.split(", ")
   return [int(i) for i in data]
 
-class DataString:
-  def __init__(self, dataString):
-    self.dataString = dataString
-
-  def parseFullArray(self):
-    tmp = self.dataString[1:self.dataString.index("]")].split(", ")
-    return [int(numeric_string) for numeric_string in tmp]
-
-  def parseMaxSumSubArray(self):
-    tmp = self.dataString.split("], ")[1]
-    tmp = tmp[1:]
-    tmp = tmp.split(", ")
-    return [int(numeric_string) for numeric_string in tmp]
-
-  def parseMaxSum(self):
-    tmp = self.dataString[self.dataString.rfind(", ") + 2:]
-    return int(tmp)
-
 def printHelp():
   print
   print os.path.basename(sys.argv[0]) + " [--help|-h]",
