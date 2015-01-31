@@ -111,7 +111,7 @@ def linearAlgorithm(fullArray):
   
   retSumData = SumData(0, 0, fullArray[0])
   maxSoFar = fullArray[0]
-  maxEndingHere = 0
+  maxEndingHere = fullArray[0]
 
   for i in range(1, len(fullArray)):
 
