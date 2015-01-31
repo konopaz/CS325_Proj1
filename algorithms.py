@@ -5,6 +5,9 @@ class SumData:
     self.right = right
     self.sum = sum
 
+  def __str__(self):
+    return '[' + str(self.left) + ',' + str(self.right) + '] = ' + str(self.sum)
+
 def sumSubArray(fullArray, aRange):
 
   sum = 0
