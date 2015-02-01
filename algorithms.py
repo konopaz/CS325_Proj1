@@ -21,20 +21,13 @@ def enumerationAlgorithm(fullArray):
   fullArrayLength = len(fullArray)
   sumData = SumData(None, None, None)
 
-  maxSum = None
-  maxRange = None
-
   for i in range(fullArrayLength):
 
-    for j in range(fullArrayLength):
+    for j in range(i, fullArrayLength):
 
-      tmpRange = (i, j)
-      tmpSum = sumSubArray(fullArray, tmpRange)
+      tmpSum = sumSubArray(fullArray, (i, j))
 
       if sumData.sum == None or sumData.sum < tmpSum:
-
-        maxSum = tmpSum
-        maxRange = tmpRange
 
         sumData.sum = tmpSum
         sumData.left = i
@@ -126,8 +119,14 @@ def linearAlgorithm(fullArray):
       
     if maxEndingHere > maxSoFar:
       maxSoFar = maxEndingHere
-      retSumData.right = i
 
   retSumData.sum = maxSoFar
 
+  tmpSum = 0
+  for i in range(retSumData.left, len(fullArray)):
+    tmpSum = tmpSum + fullArray[i]
+
+    if tmpSum == retSumData.sum:
+      retSumData.right = i
+    
   return retSumData
