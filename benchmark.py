@@ -14,6 +14,7 @@ def printHelp():
   print "--algorithm,-a\tspecify and algorithm"
   print "--min\t\tminimum int for rand num gen, defaults to -100"
   print "--max\t\tmaximum int for rand num gen, defaults to 100"
+  print "--avg\t\tthe number of times to run the test and average, defaults to 10"
   print "--steps\t\tdefaults to 1"
   print "--stepsize\t\tdefaults to 1000"
   print "--help,-h\tprint this help message"
@@ -34,6 +35,7 @@ def main(argv):
   selectedAlgorithm = "linear"
   randIntMax = 100
   randIntMin = -100
+  avg = 10
   steps = 1
   stepsize = 1000
 
@@ -61,27 +63,33 @@ def main(argv):
 
   for step in range(1, steps + 1):
 
-    randInts = []
-    for i in range(0, step * stepsize):
-      randInts.append(random.randint(randIntMin, randIntMax))
+    totalTime = 0
 
-    startTime = time.clock()
+    for j in range(0, avg):
 
-    if selectedAlgorithm == "enumeration":
-      sumData = enumerationAlgorithm(randInts)
-    elif selectedAlgorithm == "betterenum":
-      sumData = betterEnumerationAlgorithm(randInts)
-    elif selectedAlgorithm == "divide":
-      sumData = divideAndConquerAlgorithm(randInts)
-    elif selectedAlgorithm == "linear":
-      sumData = linearAlgorithm(randInts)
-    else:
-      print "Unsupported algorithm: ", selectedAlgorithm
-      exit(1)
+      randInts = []
+      for i in range(0, step * stepsize):
+        randInts.append(random.randint(randIntMin, randIntMax))
 
-    endTime = time.clock()
+      startTime = time.clock()
 
-    print str(step * stepsize) + "," + str(endTime - startTime)
+      if selectedAlgorithm == "enumeration":
+        sumData = enumerationAlgorithm(randInts)
+      elif selectedAlgorithm == "betterenum":
+        sumData = betterEnumerationAlgorithm(randInts)
+      elif selectedAlgorithm == "divide":
+        sumData = divideAndConquerAlgorithm(randInts)
+      elif selectedAlgorithm == "linear":
+        sumData = linearAlgorithm(randInts)
+      else:
+        print "Unsupported algorithm: ", selectedAlgorithm
+        exit(1)
+
+      endTime = time.clock()
+      totalTime = totalTime + (endTime - startTime)
+
+    avgTime = totalTime / avg
+    print str(step * stepsize) + "," + str(avgTime)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
