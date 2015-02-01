@@ -28,6 +28,7 @@ def printHelp():
   print "be in the format of [a, b, c, d] where the letters are integers with one line "
   print "print per array of data. The linear implementation is run by default."
   print 
+  print "--file,-f\t\tspecify the output file, defaults to stdout"
   print "--algorithm,-a\t\tspecify and algorithm"
   print "--help,-h\t\tprint this help message"
   print
@@ -38,7 +39,7 @@ def printHelp():
 def main(argv):
 
   try:
-    opts, args = getopt.getopt(argv, "ha:", ["help", "algorithm="])
+    opts, args = getopt.getopt(argv, "hf:a:", ["help", "file=", "algorithm="])
   except getopt.GetoptError:
     printHelp()
     exit(2)
@@ -48,12 +49,16 @@ def main(argv):
     exit(2)
 
   selectedAlgorithm = "linear"
+  outFile = sys.stdout
 
   for opt in opts:
     if opt[0] == "--algorithm" or opt[0] == "-a":
 
       if opt[1] in ["linear", "enumeration", "betterenum", "divide"]:
         selectedAlgorithm = opt[1]
+
+    elif opt[0] == "--file" or opt[0] == "-f":
+      outFile = open(opt[1], 'w')
 
     elif opt[0] == "--help" or opt[0] == "-h":
       printHelp()
@@ -65,13 +70,13 @@ def main(argv):
       dataArray = parseDataString(line)
 
       if selectedAlgorithm == "enumeration":
-        print summary(dataArray, enumerationAlgorithm(dataArray))
+        print >>outFile, summary(dataArray, enumerationAlgorithm(dataArray))
       elif selectedAlgorithm == "betterenum":
-        print summary(dataArray, betterEnumerationAlgorithm(dataArray))
+        print >>outFile, summary(dataArray, betterEnumerationAlgorithm(dataArray))
       elif selectedAlgorithm == "divide":
-        print summary(dataArray, divideAndConquerAlgorithm(dataArray))
+        print >>outFile, summary(dataArray, divideAndConquerAlgorithm(dataArray))
       elif selectedAlgorithm == "linear":
-        print summary(dataArray, linearAlgorithm(dataArray))
+        print >>outFile, summary(dataArray, linearAlgorithm(dataArray))
       else:
         print "Unsupported algorithm: ", selectedAlgorithm
         exit(1)
