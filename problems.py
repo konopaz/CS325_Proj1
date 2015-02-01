@@ -5,6 +5,9 @@ import sys, os, getopt
 
 def summary(fullArray, sumData):
   
+  if sumData == None:
+    return str(fullArray) + ", empty, 0"
+
   return str(fullArray) + ", " +\
     str(fullArray[sumData.left:sumData.right+1]) + ", " +\
     str(sumData.sum)

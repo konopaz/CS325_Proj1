@@ -8,6 +8,13 @@ class SumData:
   def __str__(self):
     return '[' + str(self.left) + ',' + str(self.right) + '] = ' + str(self.sum)
 
+def isAllNegative(fullArray):
+
+  for i in range(len(fullArray)):
+    if fullArray[i] > 0:
+      return False
+  return True
+
 def sumSubArray(fullArray, aRange):
 
   sum = 0
@@ -17,6 +24,9 @@ def sumSubArray(fullArray, aRange):
   return sum
 
 def enumerationAlgorithm(fullArray):
+
+  if isAllNegative(fullArray):
+    return None
 
   fullArrayLength = len(fullArray)
   sumData = SumData(None, None, None)
@@ -36,6 +46,9 @@ def enumerationAlgorithm(fullArray):
   return sumData
 
 def betterEnumerationAlgorithm(fullArray):
+
+  if isAllNegative(fullArray):
+    return None
 
   fullArrayLength = len(fullArray)
   sumData = SumData(fullArray[0], None, None)
@@ -61,6 +74,9 @@ def betterEnumerationAlgorithm(fullArray):
   return sumData
 
 def divideAndConquerAlgorithm(fullArray, left=0, right=None):
+
+  if isAllNegative(fullArray):
+    return None
 
   if right == None:
     right = len(fullArray) - 1
@@ -104,6 +120,9 @@ def divideAndConquerAlgorithm(fullArray, left=0, right=None):
   return retData
 
 def linearAlgorithm(fullArray):
+
+  if isAllNegative(fullArray):
+    return None
   
   retSumData = SumData(0, 0, fullArray[0])
   maxSoFar = fullArray[0]
